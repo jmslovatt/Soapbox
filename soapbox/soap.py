@@ -115,11 +115,12 @@ class Stub(object):
     SCHEME = 'http'
     HOST = 'www.example.net'
 
-    def __init__(self, username=None, password=None, service=None, location=None, base_url=None):
+    def __init__(self, username=None, password=None, service=None, location=None, base_url=None, proxy=None):
         '''
         '''
         self.username = username
         self.password = password
+        self.proxy = proxy
         self.service = service if service else self.SERVICE
         if location:
             self.location = location
@@ -182,6 +183,7 @@ class Stub(object):
             ca_certs=settings.CA_CERTIFICATE_FILE,
             disable_ssl_certificate_validation=disable_validation,
             timeout=settings.REQUEST_TIMEOUT,
+            proxy_info=self.proxy,
         )
         if self.username:
             http.add_credentials(self.username, self.password)
